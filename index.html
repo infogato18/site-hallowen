@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Convite: Noite das Abóboras</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Creepster&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<main>
+  <div class="sky" aria-hidden="true">
+    <span class="bat a"></span><span class="bat b"></span><span class="bat c"></span>
+    <div class="moon"></div>
+  </div>
+
+  <h1>Noite das Abóboras</h1>
+  <p class="lead">Você está convidado para uma festa de Halloween. Fantasias são obrigatórias, sustos são opcionais.</p>
+
+  <section class="card">
+    <h2>Quando</h2>
+    <p class="big">Sábado, 31 de outubro, às 20h</p>
+    <p class="small">Vai até o último fantasma ir embora.</p>
+  </section>
+
+  <section class="card">
+    <h2>Onde</h2>
+    <p class="big">Casa da Ana</p>
+    <p>Rua das Mangueiras, 123, Aldeota<br>Fortaleza, CE</p>
+    <a class="map" href="https://www.google.com/maps/search/?api=1&query=Rua+das+Mangueiras+123+Fortaleza" target="_blank" rel="noopener">Ver no mapa</a>
+  </section>
+
+  <section class="card rsvp">
+    <h2>Você vai?</h2>
+    <p class="small">Responda até 25 de outubro.</p>
+
+    <label class="nome" for="nome">Seu nome</label>
+    <input id="nome" type="text" placeholder="Digite seu nome" autocomplete="name">
+
+    <div class="buttons">
+      <button class="yes" type="button" data-r="sim">Eu vou!</button>
+      <button type="button" data-r="nao">Não posso</button>
+    </div>
+    <p id="resposta" role="status" aria-live="polite"></p>
+  </section>
+
+  <footer>Traga um doce. Ou um truque.</footer>
+</main>
+
+<script>
+  // Seu número com código do país e DDD, só números. Exemplo: 5585999999999
+  var MEU_WHATSAPP = "5585999999999";
+
+  var nome = document.getElementById("nome");
+  var out = document.getElementById("resposta");
+
+  document.querySelectorAll("button[data-r]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var n = nome.value.trim();
+      if (!n) {
+        out.textContent = "Digite seu nome primeiro. 👻";
+        nome.focus();
+        return;
+      }
+
+      var vai = b.dataset.r === "sim";
+      var texto = vai
+        ? "Oi! Aqui é " + n + ". Confirmo presença na Noite das Abóboras! 🎃"
+        : "Oi! Aqui é " + n + ". Infelizmente não consigo ir na Noite das Abóboras. 🦇";
+
+      out.textContent = vai
+        ? "Quase lá, " + n + "! Toque em enviar no WhatsApp para confirmar. 🎃"
+        : "Que pena, " + n + "! Envie o aviso no WhatsApp. 🦇";
+
+      window.open("https://wa.me/" + MEU_WHATSAPP + "?text=" + encodeURIComponent(texto), "_blank");
+    });
+  });
+</script>
+</body>
+</html>
